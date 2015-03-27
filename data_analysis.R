@@ -31,3 +31,5 @@ partab <- cbind(lambdas[low_lambda_ind],
                          ppois(0, lambdas[low_lambda_ind])) * 496, 0))
 colnames(partab) <- c("lambda", "O0", "O1", "E0", "E1")
 
+apply(partab[, -1], 1, function(row) chisq.test(x = row[1L:2], y = row[3L:4],
+                                                simulate.p.value = TRUE)[["p.value"]])
