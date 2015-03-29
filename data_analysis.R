@@ -19,13 +19,13 @@ cum_prob <- t(apply(lambdas, 1, function(column)
 #wells that have on average less than one partition with more than one template molecule
 low_lambda_ind <- which(cum_prob > 1 - 1/496, , arr.ind = TRUE)
 #partitions table
-#2nd column - observed partitions with 0 template
-#3rd column - observed partitions with 1 template
+#2nd column - observed partitions with 0 template (calculate it from concentration)
+#3rd column - observed partitions with 1 template (calculate it from concentration)
 #4rd column - expected partitions with 0 template
 #5th column - expected partitions with 1 template
 partab <- cbind(lambdas[low_lambda_ind],
-                496 - dat[, -1][low_lambda_ind], 
-                dat[, -1][low_lambda_ind],
+                496 - dat[, -1][low_lambda_ind], #wrong
+                dat[, -1][low_lambda_ind], #wrong
                 round(ppois(0, lambdas[low_lambda_ind]) * 496, 0),
                 round((ppois(1, lambdas[low_lambda_ind]) - 
                          ppois(0, lambdas[low_lambda_ind])) * 496, 0))
